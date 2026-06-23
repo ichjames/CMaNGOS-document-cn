@@ -1,0 +1,68 @@
+SELECT * FROM creature_template AS a
+LEFT JOIN locales_creature AS b ON a.entry = b.entry 
+WHERE b.name_loc4 LIKE '%大法师安吉拉%'
+
+SELECT * FROM creature WHERE id = 15350
+
+#根据creature_template的entry查询npc信息
+SELECT b.name_loc4,NAME,subname,ainame, gossipmenuid 
+FROM creature_template AS a
+LEFT JOIN locales_creature AS b ON a.entry = b.entry 
+WHERE a.entry = 16116
+
+#根据gossipmenuid查询对话
+SELECT a.entry,a.text_id,a.condition_id,b.text0_0 AS npc_text, c.broadcasttextid0,
+d.text AS broadcast_text_男, d.text1 AS broadcast_text_女,  
+e.male_text_loc4,e.female_text_loc4
+FROM `gossip_menu` AS a
+LEFT JOIN npc_text AS b ON a.text_id = b.id
+LEFT JOIN npc_text_broadcast_text AS c ON a.text_id = c.id
+LEFT JOIN broadcast_text AS d ON c.broadcasttextid0 = d.id
+LEFT JOIN locales_broadcast_text AS e ON d.id = e.entry
+WHERE a.entry = 7096
+
+#根据gossipmenuid查询选项文本
+SELECT a.*,c.male_text_loc4,c.female_text_loc4
+#,d.*
+FROM gossip_menu_option AS a
+LEFT JOIN broadcast_text AS b ON  a.option_broadcast_text = b.id
+LEFT JOIN locales_broadcast_text AS c ON b.id = c.entry
+#left join dbscripts_on_gossip as d on a.action_script_id = d.id
+WHERE a.menu_id IN (6598);
+
+#根据gossipmenuid查询condition信息
+SELECT * FROM gossip_menu AS a 
+LEFT JOIN conditions AS b ON a.condition_id = b.condition_entry 
+WHERE a.entry = 6598
+
+#根据npc/怪物id查看掉落的物品信息
+SELECT a.*,b.name,c.name_loc4 
+FROM creature_loot_template AS a
+LEFT JOIN item_template AS b ON a.item = b.entry
+LEFT JOIN locales_item AS c ON b.entry = c.entry
+WHERE a.entry = 7796
+
+#根据物品id查看物品掉落表信息
+SELECT a.*,b.name,c.name_loc4 
+FROM creature_loot_template AS a
+LEFT JOIN item_template AS b ON a.item = b.entry
+LEFT JOIN locales_item AS c ON b.entry = c.entry
+WHERE a.item = 8548
+
+
+SELECT * FROM creature_template AS a
+LEFT JOIN npc_vendor_template AS b ON a.entry = b.entry
+WHERE a.entry = 15350
+
+
+SELECT * FROM broadcast_text WHERE id = 3785
+
+
+
+SELECT * FROM quest_template AS a
+LEFT JOIN locales_quest AS b ON a.entry = b.entry
+WHERE b.title_loc4 LIKE '%纳克萨玛斯%'
+
+28006  29296
+
+
